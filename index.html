@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missya</title>
+    <!-- Import Shadows Into Light Font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap">
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Settings */
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Dynamic Gradient Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000011, #110033, #001144);
+            background-size: 300% 300%;
+            animation: gradientShift 20s ease infinite;
+            z-index: -1;
+        }
+
+        /* Gradient Shift Animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Starry Night Background */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out alternate;
+        }
+
+        /* Twinkling Animation for Stars */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Star Positions and Sizes */
+        .star:nth-child(1) { width: 2px; height: 2px; top: 10%; left: 20%; }
+        .star:nth-child(2) { width: 3px; height: 3px; top: 15%; left: 40%; }
+        .star:nth-child(3) { width: 1px; height: 1px; top: 5%; left: 70%; }
+        .star:nth-child(4) { width: 2px; height: 2px; top: 20%; left: 80%; }
+        .star:nth-child(5) { width: 4px; height: 4px; top: 30%; left: 50%; animation-duration: 4s; }
+        .star:nth-child(6) { width: 1px; height: 1px; top: 50%; left: 30%; }
+        .star:nth-child(7) { width: 3px; height: 3px; top: 40%; left: 60%; }
+        .star:nth-child(8) { width: 2px; height: 2px; top: 60%; left: 90%; }
+        .star:nth-child(9) { width: 4px; height: 4px; top: 70%; left: 40%; animation-duration: 5s; }
+        .star:nth-child(10) { width: 2px; height: 2px; top: 80%; left: 50%; }
+        .star:nth-child(11) { width: 1px; height: 1px; top: 90%; left: 60%; }
+        .star:nth-child(12) { width: 3px; height: 3px; top: 75%; left: 20%; animation-duration: 6s; }
+
+        /* Centered GUI Box */
+        #gui-box, #second-gui-box {
+            width: 300px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2); /* 80% transparency */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* White border with transparency */
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Slight shadow */
+            transition: opacity 1s ease; /* Fade effect */
+        }
+
+        /* Initially hide the second GUI */
+        #second-gui-box {
+            display: none;
+            opacity: 0;
+        }
+
+        /* Button Styling */
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2); /* Same design as the frame */
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hidden for fade out */
+        .hidden {
+            opacity: 0;
+        }
+
+        /* Typing Effect for "Miss na din po kita :)" */
+        #message {
+            font-family: 'Shadows Into Light', cursive; /* Apply Shadows Into Light font */
+            font-size: 24px;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid white;
+            width: 0;
+            opacity: 0;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        /* Hide the typing cursor when typing is finished */
+        .typed {
+            border-right: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- More Stars in the Night Sky -->
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+
+    <!-- First GUI Box -->
+    <div id="gui-box">
+        Kumusta ka?
+        <button id="okay-button">Okay lang naman</button>
+    </div>
+
+    <!-- Second GUI Box (hidden initially) -->
+    <div id="second-gui-box">
+        Miss mo ba 'ko?
+        <button id="miss-button">Hinde</button>
+    </div>
+
+    <!-- Message with typing effect -->
+    <div id="message-container">
+        <div id="message">Haluh, atleast miss kita :)) Miss u so much my pretty princess :))</div>
+    </div>
+
+    <script>
+        // Get elements
+        const guiBox = document.getElementById('gui-box');
+        const secondGuiBox = document.getElementById('second-gui-box');
+        const okayButton = document.getElementById('okay-button');
+        const missButton = document.getElementById('miss-button');
+        const message = document.getElementById('message');
+
+        // First button click event
+        okayButton.addEventListener('click', () => {
+            // Fade out first GUI Box
+            guiBox.classList.add('hidden');
+            
+            setTimeout(() => {
+                guiBox.style.display = 'none'; // Hide after fading out
+
+                // Show Second GUI Box
+                secondGuiBox.style.display = 'block';
+                setTimeout(() => {
+                    secondGuiBox.style.opacity = '1'; // Fade in
+                }, 10);
+            }, 1000);  // Match fade-out duration
+        });
+
+        // Second button click event
+        missButton.addEventListener('click', () => {
+            // Fade out second GUI Box
+            secondGuiBox.classList.add('hidden');
+            
+            setTimeout(() => {
+                secondGuiBox.style.display = 'none'; // Hide after fading out
+
+                // Show message and trigger typing effect
+                message.style.opacity = '1';  // Ensure message is visible
+                message.style.width = '100%';  // Start typing effect
+                message.style.animation = 'typing 3.5s steps(30, end), blink 0.75s step-end infinite';
+
+                // Remove typing cursor after typing is done
+                setTimeout(() => {
+                    message.classList.add('typed');  // Add class to hide cursor
+                }, 3500);  // Match duration of typing animation
+            }, 1000);  // Match fade-out duration
+        });
+    </script>
+
+</body>
+</html>
